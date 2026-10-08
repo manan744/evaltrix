@@ -1,0 +1,18 @@
+# Example policy pack for a fleet of customer-facing agents.
+pack: example-agents
+version: 2026.10.0
+owner: ai-governance@example.com
+mode: observe
+profile: baseline
+rules:
+  tool_risk:          {severity: high, owner: platform-team}
+  goal_hijacking:     {}                      # not in baseline: enable it
+  oversight_bypass:   {}
+  excessive_agency:   {}
+  prompt_injection:   {severity: low}         # a signal about traffic, not an agent failure
+  goal_completion:    {severity: low}
+  run_stats:          {args: {max_tool_calls: 20}}
+record:
+  metadata: [timestamp, agent_version, environment]
+  redact_evidence: true
+fail_on: high
